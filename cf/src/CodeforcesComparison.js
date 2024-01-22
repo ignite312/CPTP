@@ -4,6 +4,8 @@ import axios from 'axios';
 const UserTagSolveCounts = () => {
   const [tagCounts, setTagCounts] = useState({});
   const [loading, setLoading] = useState(true);
+  const [selectedTag, setSelectedTag] = useState(null);
+  const [tagProblems, setTagProblems] = useState([]);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -14,29 +16,24 @@ const UserTagSolveCounts = () => {
         const submissions = response.data.result;
 
         const uniqueProblems = new Set();
-        const uniqueTagsByProblem = new Map();
         const newTagCounts = {};
 
         submissions.forEach((submission) => {
           const problemId = submission.problem?.contestId + submission.problem?.index;
 
-          if (!uniqueProblems.has(problemId)) {
+          if (!uniqueProblems.has(problemId) && submission.verdict === result) {
             uniqueProblems.add(problemId);
 
             const tags = submission.problem?.tags || [];
+            const uniqueTags = Array.from(new Set(tags)); // Ensure unique tags
 
-            // Only count tags for problems with verdict "OK"
-            if (submission.verdict === result) {
-              // Ensure unique tags for each problem
-              const uniqueTags = new Set(tags);
-
-              uniqueTags.forEach((tag) => {
-                newTagCounts[tag] = (newTagCounts[tag] || 0) + 1;
+            uniqueTags.forEach((tag) => {
+              newTagCounts[tag] = (newTagCounts[tag] || new Set()).add({
+                id: problemId,
+                name: submission.problem.name,
+                link: `https://codeforces.com/problemset/problem/${submission.problem.contestId}/${submission.problem.index}`
               });
-
-              // Store unique tags for each problem in the map
-              uniqueTagsByProblem.set(problemId, uniqueTags);
-            }
+            });
           }
         });
 
@@ -51,19 +48,46 @@ const UserTagSolveCounts = () => {
     fetchData();
   }, []);
 
+  const handleTagClick = (tag) => {
+    setSelectedTag(tag);
+
+    // Get all problems associated with the selected tag
+    const problems = Array.from(tagCounts[tag] || []);
+    setTagProblems(problems);
+  };
+
   return (
     <div>
       <h2>User Tag Solve Counts</h2>
       {loading ? (
         <p>Loading...</p>
       ) : (
-        <ul>
-          {Object.entries(tagCounts).map(([tag, solveCount]) => (
-            <li key={tag}>
-              {tag}: {solveCount}
-            </li>
-          ))}
-        </ul>
+        <div>
+          <ul>
+            {Object.entries(tagCounts).map(([tag, solveCount]) => (
+              <li key={tag}>
+                <button onClick={() => handleTagClick(tag)}>
+                  {tag}: {solveCount.size}
+                </button>
+              </li>
+            ))}
+          </ul>
+
+          {selectedTag && (
+            <div>
+              <h3>Problems associated with {selectedTag}</h3>
+              <ul>
+                {tagProblems.map((problem, index) => (
+                  <li key={index}>
+                    <a href={problem.link} target="_blank" rel="noopener noreferrer">
+                      {problem.name}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+        </div>
       )}
     </div>
   );
