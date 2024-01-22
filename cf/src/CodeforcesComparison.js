@@ -1,52 +1,53 @@
+// UserTagSolveCounts.jsx
+
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
+import './UserTagSolveCounts.css'; // Import your CSS file for styles
 
 const UserTagSolveCounts = () => {
+  const [handle, setHandle] = useState('');
   const [tagCounts, setTagCounts] = useState({});
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [selectedTag, setSelectedTag] = useState(null);
   const [tagProblems, setTagProblems] = useState([]);
 
-  useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const handle = 'acchaa';
-        const result = 'OK';
-        const response = await axios.get(`https://codeforces.com/api/user.status?handle=${handle}&result=${result}`);
-        const submissions = response.data.result;
+  const fetchData = async () => {
+    setLoading(true);
 
-        const uniqueProblems = new Set();
-        const newTagCounts = {};
+    try {
+      const result = 'OK';
+      const response = await axios.get(`https://codeforces.com/api/user.status?handle=${handle}&result=${result}`);
+      const submissions = response.data.result;
 
-        submissions.forEach((submission) => {
-          const problemId = submission.problem?.contestId + submission.problem?.index;
+      const uniqueProblems = new Set();
+      const newTagCounts = {};
 
-          if (!uniqueProblems.has(problemId) && submission.verdict === result) {
-            uniqueProblems.add(problemId);
+      submissions.forEach((submission) => {
+        const problemId = submission.problem?.contestId + submission.problem?.index;
 
-            const tags = submission.problem?.tags || [];
-            const uniqueTags = Array.from(new Set(tags)); // Ensure unique tags
+        if (!uniqueProblems.has(problemId) && submission.verdict === result) {
+          uniqueProblems.add(problemId);
 
-            uniqueTags.forEach((tag) => {
-              newTagCounts[tag] = (newTagCounts[tag] || new Set()).add({
-                id: problemId,
-                name: submission.problem.name,
-                link: `https://codeforces.com/problemset/problem/${submission.problem.contestId}/${submission.problem.index}`
-              });
+          const tags = submission.problem?.tags || [];
+          const uniqueTags = Array.from(new Set(tags)); // Ensure unique tags
+
+          uniqueTags.forEach((tag) => {
+            newTagCounts[tag] = (newTagCounts[tag] || new Set()).add({
+              id: problemId,
+              name: submission.problem.name,
+              link: `https://codeforces.com/problemset/problem/${submission.problem.contestId}/${submission.problem.index}`
             });
-          }
-        });
+          });
+        }
+      });
 
-        setTagCounts(newTagCounts);
-        setLoading(false);
-      } catch (error) {
-        console.error('Error fetching data:', error);
-        setLoading(false);
-      }
-    };
-
-    fetchData();
-  }, []);
+      setTagCounts(newTagCounts);
+    } catch (error) {
+      console.error('Error fetching data:', error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   const handleTagClick = (tag) => {
     setSelectedTag(tag);
@@ -57,38 +58,52 @@ const UserTagSolveCounts = () => {
   };
 
   return (
-    <div>
-      <h2>User Tag Solve Counts</h2>
-      {loading ? (
-        <p>Loading...</p>
-      ) : (
-        <div>
-          <ul>
+    <div className="user-tag-solve-counts">
+      <div className="left-column">
+        <h2>User Tag Solve Counts</h2>
+        <div className="input-section">
+          <label>
+            Enter Codeforces Handle:
+            <input type="text" value={handle} onChange={(e) => setHandle(e.target.value)} />
+          </label>
+          <div className="button-container">
+            <button onClick={fetchData} disabled={!handle || loading}>
+              Fetch Data
+            </button>
+          </div>
+        </div>
+
+        {loading ? (
+          <p>Loading...</p>
+        ) : (
+          <ul className="tag-list">
             {Object.entries(tagCounts).map(([tag, solveCount]) => (
               <li key={tag}>
-                <button onClick={() => handleTagClick(tag)}>
+                <button className="tag-button" onClick={() => handleTagClick(tag)}>
                   {tag}: {solveCount.size}
                 </button>
               </li>
             ))}
           </ul>
+        )}
+      </div>
 
-          {selectedTag && (
-            <div>
-              <h3>Problems associated with {selectedTag}</h3>
-              <ul>
-                {tagProblems.map((problem, index) => (
-                  <li key={index}>
-                    <a href={problem.link} target="_blank" rel="noopener noreferrer">
-                      {problem.name}
-                    </a>
-                  </li>
-                ))}
-              </ul>
-            </div>
-          )}
-        </div>
-      )}
+      <div className="right-column">
+        {selectedTag && (
+          <div>
+            <h3>Problems associated with {selectedTag}</h3>
+            <ul className="problem-list">
+              {tagProblems.map((problem, index) => (
+                <li key={index}>
+                  <a href={problem.link} target="_blank" rel="noopener noreferrer">
+                    {problem.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

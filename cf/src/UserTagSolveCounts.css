@@ -1,0 +1,70 @@
+/* UserTagSolveCounts.css */
+
+.user-tag-solve-counts {
+    display: grid;
+    grid-template-columns: 1fr 1fr; /* Two columns with equal width */
+    font-family: 'Arial', sans-serif;
+    margin: 20px;
+  }
+  
+  .left-column {
+    padding-right: 20px; /* Add some spacing between columns */
+  }
+  
+  .input-section {
+    margin-bottom: 20px;
+  }
+  
+  label {
+    display: block;
+    margin-bottom: 8px;
+  }
+  
+  input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+  }
+  
+  .button-container {
+    margin-top: 10px;
+  }
+  
+  button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    cursor: pointer;
+  }
+  
+  .tag-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .tag-button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+  }
+  
+  .right-column {
+    padding-left: 20px; /* Add some spacing between columns */
+  }
+  
+  .problem-list {
+    list-style: none;
+    padding: 0;
+  }
+  
+  .problem-list a {
+    text-decoration: none;
+    color: #007bff;
+    font-weight: bold;
+  }
+  
