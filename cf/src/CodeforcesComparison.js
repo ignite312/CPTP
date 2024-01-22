@@ -35,6 +35,7 @@ const UserTagSolveCounts = () => {
             newTagCounts[tag] = (newTagCounts[tag] || new Set()).add({
               id: problemId,
               name: submission.problem.name,
+              rating: submission.problem.rating,
               link: `https://codeforces.com/problemset/problem/${submission.problem.contestId}/${submission.problem.index}`
             });
           });
@@ -96,7 +97,7 @@ const UserTagSolveCounts = () => {
               {tagProblems.map((problem, index) => (
                 <li key={index}>
                   <a href={problem.link} target="_blank" rel="noopener noreferrer">
-                    {problem.name}
+                    {problem.name} {problem.rating && `(${problem.rating})`} {problem.id}
                   </a>
                 </li>
               ))}
