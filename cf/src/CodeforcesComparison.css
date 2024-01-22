@@ -1,0 +1,41 @@
+.CodeforcesComparison {
+  max-width: 400px;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.CodeforcesComparison label {
+  display: block;
+  margin-bottom: 5px;
+  text-align: left; /* Align label text to the left */
+}
+
+.CodeforcesComparison input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+}
+
+.CodeforcesComparison button {
+  background-color: #4caf50;
+  color: white;
+  padding: 10px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.CodeforcesComparison button:hover {
+  background-color: #45a049;
+}
+
+.CodeforcesComparison p {
+  margin-top: 10px;
+}
+
+.CodeforcesComparison p.error {
+  color: red;
+}
