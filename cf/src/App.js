@@ -1,8 +1,5 @@
 import './App.css';
-import './App.css';
-import ContestList from './ContestList';
-import CFcomparison from './CodeforcesComparison';
-
+import CodeforcesComparison from './CodeforcesComparison';
 
 function App() {
   return (
@@ -10,7 +7,7 @@ function App() {
       <header className="App-header">
         <h2>Hey</h2>
       </header>
-      <CFcomparison />
+      <CodeforcesComparison />
     </div>
   );
 }

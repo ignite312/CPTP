@@ -1,8 +1,6 @@
-// UserTagSolveCounts.jsx
-
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
-import './UserTagSolveCounts.css'; // Import your CSS file for styles
+import './CodeforcesComparison.css'; // Import your CSS file for styles
 
 const UserTagSolveCounts = () => {
   const [handle, setHandle] = useState('');
@@ -10,6 +8,9 @@ const UserTagSolveCounts = () => {
   const [loading, setLoading] = useState(false);
   const [selectedTag, setSelectedTag] = useState(null);
   const [tagProblems, setTagProblems] = useState([]);
+  const [sortByTag, setSortByTag] = useState('name'); // Default sort by tag name
+  const [sortOrder, setSortOrder] = useState('asc'); // Default sort order for tags
+  const [sortByProblems, setSortByProblems] = useState('asc'); // Default sort order for problems
 
   const fetchData = async () => {
     setLoading(true);
@@ -58,13 +59,52 @@ const UserTagSolveCounts = () => {
     setTagProblems(problems);
   };
 
+  const handleSortChange = (event) => {
+    const selectedSortBy = event.target.value;
+    setSortOrder(selectedSortBy);
+
+    // Apply sorting for tag list
+    const sortedTagList = sortTagList(Object.entries(tagCounts));
+    setTagCounts(sortedTagList);
+
+    // Apply sorting for right column problems list
+    const sortedProblems = sortProblemsList(tagProblems, selectedSortBy);
+    setTagProblems(sortedProblems);
+  };
+
+  const sortTagList = (tagList) => {
+    switch (sortByTag) {
+      case 'name':
+        return tagList.sort((a, b) => a[0].localeCompare(b[0]));
+      case 'countAsc':
+        return tagList.sort((a, b) => a[1].size - b[1].size);
+      case 'countDesc':
+        return tagList.sort((a, b) => b[1].size - a[1].size);
+      default:
+        return tagList;
+    }
+  };
+
+  const sortProblemsList = (problemsList, order) => {
+    return problemsList.sort((a, b) => {
+      const ratingA = a.rating || 0;
+      const ratingB = b.rating || 0;
+
+      if (order === 'asc') {
+        return ratingA - ratingB;
+      } else {
+        return ratingB - ratingA;
+      }
+    });
+  };
+
   return (
     <div className="user-tag-solve-counts">
       <div className="left-column">
-        <h2>User Tag Solve Counts</h2>
+        <h2>User Tag Solve Counts </h2>
         <div className="input-section">
           <label>
-            Enter Codeforces Handle:
+            Codeforces Handle:<span>&nbsp;&nbsp;</span>
             <input type="text" value={handle} onChange={(e) => setHandle(e.target.value)} />
           </label>
           <div className="button-container">
@@ -72,13 +112,21 @@ const UserTagSolveCounts = () => {
               Fetch Data
             </button>
           </div>
+          <label>
+            Sort By Tag:<span>&nbsp;&nbsp;</span>
+            <select value={sortByTag} onChange={(e) => setSortByTag(e.target.value)}>
+              <option value="name">Name</option>
+              <option value="countAsc">Count Asc</option>
+              <option value="countDesc">Count Desc</option>
+            </select>
+          </label>
         </div>
 
         {loading ? (
           <p>Loading...</p>
         ) : (
           <ul className="tag-list">
-            {Object.entries(tagCounts).map(([tag, solveCount]) => (
+            {sortTagList(Object.entries(tagCounts)).map(([tag, solveCount]) => (
               <li key={tag}>
                 <button className="tag-button" onClick={() => handleTagClick(tag)}>
                   {tag}: {solveCount.size}
@@ -92,16 +140,30 @@ const UserTagSolveCounts = () => {
       <div className="right-column">
         {selectedTag && (
           <div>
-            <h3>Problems associated with {selectedTag}</h3>
-            <ul className="problem-list">
-              {tagProblems.map((problem, index) => (
-                <li key={index}>
+            <h2>Problems associated with {selectedTag}</h2>
+            <div className="sort-container">
+              <label>
+                Sort By:<span>&nbsp;&nbsp;</span>
+                <select value={sortByProblems} onChange={(e) => setSortByProblems(e.target.value)}>
+                  <option value="asc">Ascending</option>
+                  <option value="desc">Descending</option>
+                </select>
+              </label>
+            </div>
+            <div className="card-list">
+              {sortProblemsList(tagProblems, sortByProblems).map((problem, index) => (
+                <div className="card" key={index}>
                   <a href={problem.link} target="_blank" rel="noopener noreferrer">
-                    {problem.name} {problem.rating && `(${problem.rating})`} {problem.id}
+                    <span className="index">{index + 1}.</span>
+                    <span>&nbsp;</span>
+                    <span className="problem-info">
+                      <span className="problem-name">{problem.name}</span>
+                      {problem.rating && <span>({problem.rating})</span>}
+                    </span>
                   </a>
-                </li>
+                </div>
               ))}
-            </ul>
+            </div>
           </div>
         )}
       </div>
