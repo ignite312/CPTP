@@ -79,7 +79,6 @@ button {
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px; /* Add space between cards */
-  width: 400px; /* Take up full width */
   transition: background 0.3s ease; /* Add a smooth transition effect */
 }
 .solved {
@@ -87,7 +86,6 @@ button {
   border-radius: 8px;
   padding: 16px;
   margin-bottom: 16px; /* Add space between cards */
-  width: 400px; /* Take up full width */
   transition: background 0.3s ease; /* Add a smooth transition effect */
 }
 
@@ -157,4 +155,17 @@ select:after {
   transform: translateY(-50%);
   pointer-events: none;
   color: #555; /* Change arrow color */
+}
+@media screen and (max-width: 600px) {
+  .user-tag-solve-counts {
+    grid-template-columns: 1fr; /* Single column layout on small screens */
+  }
+
+  .left-column {
+    order: -1; /* Move left column to the end on small screens */
+  }
+
+  .right-column {
+    order: 0; /* Reset the order for the right column on small screens */
+  }
 }

@@ -12,7 +12,6 @@ const AppHeader = () => {
         <h3>A Bit Of Competitive Programming</h3>
         <nav>
           <ul>
-            <li><Link to="/">Home</Link></li>
             <li><a href={`mailto:schrodingersrats@gmail.com?subject=Contact%20${username}`} target="_blank" rel="noopener noreferrer">Contact</a></li>
             <li><a href="https://ignite312.github.io/ME" target="_blank" rel="noopener noreferrer">About Me</a></li>
             {/* Add more navigation options as needed */}
