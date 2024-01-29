@@ -1,0 +1,59 @@
+.App-header {
+  background: #000;
+  color: white;
+  padding: 20px;
+}
+
+.header-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 20px;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  margin: 0;
+}
+
+nav li {
+  margin: 0 15px;
+}
+
+nav a {
+  text-decoration: none;
+  color: white;
+  font-weight: bold;
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #61dafb;
+}
+
+.project-description {
+  margin-top: 20px;
+  text-align: left;
+  font-size: 14px;
+  padding: 0 20px;
+}
+
+.additional-options {
+  display: flex;
+  margin-top: 20px;
+}
+
+.additional-options a {
+  margin-right: 10px;
+  padding: 10px;
+  font-size: 15px;
+  text-decoration: none;
+  color: green;
+  transition: color 0.3s ease;
+}
+
+.additional-options a:hover {
+  color: #61dafb; /* Change hover color */
+}

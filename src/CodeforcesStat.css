@@ -1,0 +1,160 @@
+/* UserTagSolveCounts.css */
+.user-tag-solve-counts {
+  display: grid;
+  grid-template-columns: 1fr 1fr; /* Two columns with equal width */
+  font-family: 'Poppins', sans-serif; /* Change the font family for the user tag solve counts section */
+  margin: 20px;
+}
+
+.left-column {
+  padding-right: 20px; /* Add some spacing between columns */
+}
+
+.input-section {
+  margin-bottom: 20px;
+}
+
+label {
+  display: block;
+  margin-bottom: 8px;
+  color: #333; /* Change label font color */
+}
+
+input {
+  padding: 8px;
+  font-size: 16px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  color: #555; /* Change input font color */
+}
+
+.button-container {
+  margin-top: 10px;
+}
+
+button {
+  background: linear-gradient(to right, #79addc, #3b5998); /* Gradient background */
+  color: #fff;
+  border: none;
+  border-radius: 5px; /* Set the border radius for a rounded button */
+  padding: 8px 16px;
+  cursor: pointer;
+  width: 300px;
+  transition: background 0.3s ease, transform 0.3s ease; /* Add a smooth transition effect */
+
+  /* Hover effect styles */
+  &:hover {
+    background: linear-gradient(to right, #3b5998, #79addc); /* Change the background color on hover */
+    transform: scale(1.05); /* Scale the button on hover for a stylish effect */
+  }
+}
+
+.tag-list {
+  list-style: none;
+  padding: 0;
+}
+
+.tag-button {
+  background: #3498db; /* Muted blue background color */
+  color: #fff;
+  border: none;
+  font-size: 16px;
+  padding: 8px 16px;
+  margin: 4px;
+  cursor: pointer;
+}
+
+
+.right-column {
+  padding-left: 20px; /* Add some spacing between columns */
+}
+
+.card-list {
+  display: flex;
+  flex-direction: column; /* Display cards in a column */
+}
+
+.notsolved {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px; /* Add space between cards */
+  width: 400px; /* Take up full width */
+  transition: background 0.3s ease; /* Add a smooth transition effect */
+}
+.solved {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px; /* Add space between cards */
+  width: 400px; /* Take up full width */
+  transition: background 0.3s ease; /* Add a smooth transition effect */
+}
+
+.solved{
+  background-color: green;
+  color: black;
+}
+
+.solved:hover {
+  background-color: darkgreen; /* Keep the background color consistent on hover */
+}
+
+.solved a {
+  text-decoration: none;
+  color: white; /* Change problem name font color to black */
+  font-weight: bold;
+  display: block;
+}
+
+.problem-info {
+  margin-top: 8px; /* Set the gap between problem name and rating */
+}
+
+.notsolved{
+  background-color: white;
+}
+
+.notsolved:hover {
+  background-color: #f0f0f0; /* Keep the background color consistent on hover */
+  color: black; /* Change the text color to black on hover */
+}
+
+.notsolved a {
+  text-decoration: none;
+  color: white; /* Change problem name font color to black */
+  font-weight: bold;
+  display: block;
+}
+.notsolved a {
+  text-decoration: none;
+  color: black; /* Change problem name font color to black */
+  font-weight: bold;
+  display: block;
+}
+
+/* Add this to your existing CSS file */
+select {
+  appearance: none; /* Remove default styles */
+  padding: 8px;
+  font-size: 14px;
+  margin-top: 10px;
+  cursor: pointer;
+  color: #555; /* Change select font color */
+}
+
+/* Style for the dropdown arrow */
+select::-ms-expand {
+  display: none; /* Remove default arrow on IE/Edge */
+}
+
+/* Style for the custom arrow */
+select:after {
+  content: '\25BC'; /* Unicode for down arrow character */
+  position: absolute;
+  right: 8px;
+  top: 50%;
+  transform: translateY(-50%);
+  pointer-events: none;
+  color: #555; /* Change arrow color */
+}

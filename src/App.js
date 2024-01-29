@@ -1,14 +1,19 @@
-import './App.css';
-import CodeforcesComparison from './CodeforcesComparison';
+import React from 'react';
+import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
+import AppHeader from './AppHeader';
+import CodeforcesStat from './CodeforcesStat';
 
-function App() {
+const App = () => {
   return (
-    <div className="App">
-      <header className="App-header">
-        <h2>Hey</h2>
-      </header>
-      <CodeforcesComparison />
-    </div>
+    <Router>
+      <div>
+        <AppHeader />
+        <Routes>
+          <Route path="/" element={<CodeforcesStat />} />
+        </Routes>
+      </div>
+    </Router>
   );
-}
+};
+
 export default App;
