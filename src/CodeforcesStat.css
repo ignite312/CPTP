@@ -81,6 +81,13 @@ button {
   margin-bottom: 16px; /* Add space between cards */
   transition: background 0.3s ease; /* Add a smooth transition effect */
 }
+.notsolved-red {
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  padding: 16px;
+  margin-bottom: 16px; /* Add space between cards */
+  transition: background 0.3s ease; /* Add a smooth transition effect */
+}
 .solved {
   border: 1px solid #ccc;
   border-radius: 8px;
@@ -90,12 +97,12 @@ button {
 }
 
 .solved{
-  background-color: green;
+  background-color: darkgreen;
   color: black;
 }
 
 .solved:hover {
-  background-color: darkgreen; /* Keep the background color consistent on hover */
+  background-color: green; /* Keep the background color consistent on hover */
 }
 
 .solved a {
@@ -131,6 +138,29 @@ button {
   display: block;
 }
 
+
+
+.notsolved-red{
+  background-color: darkred;
+}
+
+.notsolved-red:hover {
+  background-color: red; /* Keep the background color consistent on hover */
+  color: black; /* Change the text color to black on hover */
+}
+
+.notsolved-red a {
+  text-decoration: none;
+  color: white; /* Change problem name font color to black */
+  font-weight: bold;
+  display: block;
+}
+.notsolved-red a {
+  text-decoration: none;
+  color: white; /* Change problem name font color to black */
+  font-weight: bold;
+  display: block;
+}
 /* Add this to your existing CSS file */
 select {
   appearance: none; /* Remove default styles */
@@ -168,4 +198,19 @@ select:after {
   .right-column {
     order: 0; /* Reset the order for the right column on small screens */
   }
+}
+
+@keyframes colorWave {
+  0% {
+    background-position: 0 0;
+  }
+  100% {
+    background-position: 100% 0;
+  }
+}
+
+.card-list.color-wave-animation {
+  background: linear-gradient(to right, #4CAF50, #1e90ff, #4CAF50); /* Use green and blue colors here */
+  background-size: 200% 100%;
+  animation: colorWave 1.5s linear infinite; /* Adjust the animation duration as needed */
 }

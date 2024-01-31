@@ -4,6 +4,7 @@ import './CodeforcesStat.css'; // Import your CSS file for styles
 
 const UserTagSolveCounts = () => {
   const [handle, setHandle] = useState('');
+  const [handle_2, setHandle_2] = useState('Tspectre');
   const [tagCounts, setTagCounts] = useState({});
   const [loading, setLoading] = useState(false);
   const [selectedTag, setSelectedTag] = useState(null);
@@ -12,10 +13,13 @@ const UserTagSolveCounts = () => {
   const [sortOrder, setSortOrder] = useState('asc'); // Default sort order for tags
   const [sortByProblems, setSortByProblems] = useState('asc'); // Default sort order for problems
   const [ignite312AcceptedProblemIds, setIgnite312AcceptedProblemIds] = useState(new Set());
+  const [refreshClicked, setRefreshClicked] = useState(true); // State to track the "Refresh" button click
 
   useEffect(() => {
-    fetchDataForIgnite312();
-  }, []); // Fetch Ignite312 data on component mount
+    if (refreshClicked) {
+      fetchDataForYou();
+    }
+  }, [refreshClicked]); // Fetch Ignite312 data only when refreshClicked state changes
 
   const fetchData = async () => {
     setLoading(true);
@@ -56,25 +60,46 @@ const UserTagSolveCounts = () => {
     }
   };
 
-  const fetchDataForIgnite312 = async () => {
+  const fetchDataForYou = async () => {
     try {
       const result = 'OK';
-      const response = await axios.get(`https://codeforces.com/api/user.status?handle=Tspectre&result=${result}`);
+      const response = await axios.get(`https://codeforces.com/api/user.status?handle=${handle_2}&result=${result}`);
       const submissions = response.data.result;
 
-      const acceptedProblemIds = new Set();
-      submissions.forEach((submission) => {
-        const problemId = submission.problem?.contestId + submission.problem?.index;
-        if (submission.verdict === result) {
-          acceptedProblemIds.add(problemId);
-        }
-      });
+      // Check if submissions is defined before iterating over it
+      if (submissions) {
+        const acceptedProblemIds = new Set();
+        const submittedProblemIds = new Set();
 
-      setIgnite312AcceptedProblemIds(acceptedProblemIds);
+        submissions.forEach((submission) => {
+          const problemId = submission.problem?.contestId + submission.problem?.index;
+
+          if (submission.verdict === result) {
+            acceptedProblemIds.add(problemId);
+          }
+
+          submittedProblemIds.add(problemId);
+        });
+
+        setIgnite312AcceptedProblemIds(acceptedProblemIds);
+
+        // Update the tagProblems array with the submitted flag
+        const updatedTagProblems = tagProblems.map(problem => ({
+          ...problem,
+          submitted: submittedProblemIds.has(problem.id),
+        }));
+
+        setTagProblems(updatedTagProblems);
+        setRefreshClicked(false); // Reset the state after fetching data
+      } else {
+        // Handle the case when submissions is undefined or null
+        console.error('Error: Submissions data is undefined or null.');
+      }
     } catch (error) {
       console.error('Error fetching Ignite312 data:', error);
     }
   };
+
 
   const handleTagClick = (tag) => {
     setSelectedTag(tag);
@@ -92,7 +117,7 @@ const UserTagSolveCounts = () => {
     const sortedTagList = sortTagList(Object.entries(tagCounts));
     setTagCounts(sortedTagList);
 
-    // Apply sorting for right column problems list
+    // Apply sorting for the right column problems list
     const sortedProblems = sortProblemsList(tagProblems, selectedSortBy);
     setTagProblems(sortedProblems);
   };
@@ -122,13 +147,18 @@ const UserTagSolveCounts = () => {
       }
     }).map(problem => {
       // Check if the problem is solved by "ignite312"
-      const isIgnite312Solved = ignite312AcceptedProblemIds.has(problem.id);
+      const youSolved = ignite312AcceptedProblemIds.has(problem.id);
 
       return {
         ...problem,
-        isIgnite312Solved,
+        youSolved,
       };
     });
+  };
+
+  const handleRefresh = () => {
+    // Set the refreshClicked state to trigger the useEffect hook
+    setRefreshClicked(true);
   };
 
   return (
@@ -174,6 +204,16 @@ const UserTagSolveCounts = () => {
         {selectedTag && (
           <div>
             <h2>Problems associated with {selectedTag}</h2>
+            <label>
+              Your Codeforces Handle:<span>&nbsp;&nbsp;</span>
+              <input type="text" value={handle_2} onChange={(e) => setHandle_2(e.target.value)} />
+            </label>
+            <div className="button-container">
+              <button onClick={handleRefresh} disabled={!handle}>
+                Refresh
+              </button>
+              {refreshClicked && <p>Refreshing...</p>}
+            </div>
             <div className="sort-container">
               <label>
                 Sort By:<span>&nbsp;&nbsp;</span>
@@ -183,10 +223,11 @@ const UserTagSolveCounts = () => {
                 </select>
               </label>
             </div>
+
             <div className="card-list">
               {sortProblemsList(tagProblems, sortByProblems).map((problem, index) => (
                 <div
-                  className={`${problem.isIgnite312Solved ? 'solved' : 'notsolved'}`}
+                  className={`${problem.youSolved ? 'solved' : (problem.submitted ? 'notsolved-red' : 'notsolved')}`}
                   key={index}
                 >
                   <a href={problem.link} target="_blank" rel="noopener noreferrer">

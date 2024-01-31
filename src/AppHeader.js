@@ -4,7 +4,7 @@ import './AppHeader.css';
 
 const AppHeader = () => {
   // Get the username from the URL parameters or set it to the default value
-  const username = new URLSearchParams(window.location.search).get('username') || 'ignite312';
+  const username = new URLSearchParams(window.location.search).get('username') || 'Emon';
 
   return (
     <header className="App-header">
@@ -12,7 +12,7 @@ const AppHeader = () => {
         <h3>A Bit Of Competitive Programming</h3>
         <nav>
           <ul>
-            <li><a href={`mailto:schrodingersrats@gmail.com?subject=Contact%20${username}`} target="_blank" rel="noopener noreferrer">Contact</a></li>
+            <li><a href={`mailto:schrodingersrats@gmail.com?subject=Hey%20${username}`} target="_blank" rel="noopener noreferrer">Contact</a></li>
             <li><a href="https://ignite312.github.io/ME" target="_blank" rel="noopener noreferrer">About Me</a></li>
             {/* Add more navigation options as needed */}
           </ul>
