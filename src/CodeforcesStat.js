@@ -167,7 +167,7 @@ const UserTagSolveCounts = () => {
         <h2>User Tag Solve Counts </h2>
         <div className="input-section">
           <label>
-            Codeforces Handle:<span>&nbsp;&nbsp;</span>
+            CF Handle:<span>&nbsp;&nbsp;</span>
             <input type="text" value={handle} onChange={(e) => setHandle(e.target.value)} />
           </label>
           <div className="button-container">
@@ -205,7 +205,7 @@ const UserTagSolveCounts = () => {
           <div>
             <h2>Problems associated with {selectedTag}</h2>
             <label>
-              Your Codeforces Handle:<span>&nbsp;&nbsp;</span>
+              Your CF Handle:<span>&nbsp;&nbsp;</span>
               <input type="text" value={handle_2} onChange={(e) => setHandle_2(e.target.value)} />
             </label>
             <div className="button-container">

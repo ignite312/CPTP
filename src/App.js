@@ -9,7 +9,7 @@ const App = () => {
       <div>
         <AppHeader />
         <Routes>
-          <Route path="/a-bit-of-CP" element={<CodeforcesStat />} />
+          <Route path="/CPTP" element={<CodeforcesStat />} />
         </Routes>
       </div>
     </Router>
