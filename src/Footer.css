@@ -1,0 +1,49 @@
+/* Footer.css */
+
+.footer {
+  margin-top: 500px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: whitesmoke; /* Add your desired background color for the entire footer */
+  padding: 10px 20px; /* Adjust padding as needed */
+  color: white; /* Add your desired text color */
+}
+
+.left-section {
+  flex: 1;
+  text-align: left; /* Align text to the left within the left section */
+}
+
+.right-section {
+  display: flex;
+  gap: 1px; /* Adjust the gap between social icons as needed */
+}
+
+/* Adjust font size for the left section */
+.left-section p {
+  font-size: 14px; /* Add your desired font size */
+}
+
+/* Responsive design for mobile view */
+@media (max-width: 600px) {
+  .footer {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+  }
+
+  .left-section {
+    order: 2; /* Change the order for mobile */
+    margin-top: 10px; /* Add margin at the top for spacing */
+  }
+
+  .right-section {
+    order: 1; /* Change the order for mobile */
+    margin-top: 10px; /* Add margin at the top for spacing */
+  }
+
+  .left-section p {
+    margin-bottom: 10px; /* Add margin at the bottom for spacing */
+  }
+}

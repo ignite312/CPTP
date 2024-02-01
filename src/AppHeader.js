@@ -9,22 +9,21 @@ const AppHeader = () => {
   return (
     <header className="App-header">
       <div className="header-container">
-        <h3>CPTP</h3>
+        <h1>CPTP</h1>
         <nav>
           <ul>
-            <li><a href={`mailto:schrodingersrats@gmail.com?subject=Hey%20${username}`} target="_blank" rel="noopener noreferrer">Contact</a></li>
+            <li><a href={`mailto:schrodingersrats@gmail.com?subject=Hey`} target="_blank" rel="noopener noreferrer">Contact</a></li>
             <li><a href="https://ignite312.github.io/ME" target="_blank" rel="noopener noreferrer">About Me</a></li>
             {/* Add more navigation options as needed */}
           </ul>
         </nav>
       </div>
       <div className="project-description">
-        <p>
-          A Competitive Programming tool and resource-sharing page. I will try to add all kinds of Data Structure and Algorithmic Resources, as well as Competitive Programming material here.
-        </p>
+        <h5>
+        A Competitive Programming tool and resource-sharing page. I will try to add all kinds of Data Structure and Algorithmic Resources, as well as Competitive Programming stuff here. Feel free to ask me anything...
+        </h5>
         <div className="additional-options">
           <Link to="/CPTP">Get User Problem List in CF By Category</Link>
-          {/* Add more options as needed */}
         </div>
       </div>
     </header>

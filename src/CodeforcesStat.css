@@ -4,10 +4,12 @@
   grid-template-columns: 1fr 1fr; /* Two columns with equal width */
   font-family: 'Poppins', sans-serif; /* Change the font family for the user tag solve counts section */
   margin: 20px;
+  padding: 0px;
 }
 
 .left-column {
-  padding-right: 20px; /* Add some spacing between columns */
+  margin-left: 10px;
+  padding-right: 1px; /* Add some spacing between columns */
 }
 
 .input-section {
@@ -64,10 +66,6 @@ button {
   cursor: pointer;
 }
 
-
-.right-column {
-  padding-left: 20px; /* Add some spacing between columns */
-}
 
 .card-list {
   display: flex;
@@ -187,6 +185,7 @@ select:after {
   color: #555; /* Change arrow color */
 }
 @media screen and (max-width: 600px) {
+
   .user-tag-solve-counts {
     grid-template-columns: 1fr; /* Single column layout on small screens */
   }

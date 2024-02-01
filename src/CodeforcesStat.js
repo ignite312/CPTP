@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from 'react';
 import axios from 'axios';
 import './CodeforcesStat.css'; // Import your CSS file for styles
+import Cf_Profile from './CF_Profile';
+
 
 const UserTagSolveCounts = () => {
   const [handle, setHandle] = useState('');
@@ -10,10 +12,10 @@ const UserTagSolveCounts = () => {
   const [selectedTag, setSelectedTag] = useState(null);
   const [tagProblems, setTagProblems] = useState([]);
   const [sortByTag, setSortByTag] = useState('name'); // Default sort by tag name
-  const [sortOrder, setSortOrder] = useState('asc'); // Default sort order for tags
   const [sortByProblems, setSortByProblems] = useState('asc'); // Default sort order for problems
   const [ignite312AcceptedProblemIds, setIgnite312AcceptedProblemIds] = useState(new Set());
   const [refreshClicked, setRefreshClicked] = useState(true); // State to track the "Refresh" button click
+  const [fetchButtonClicked, setFetchButtonClicked] = useState(false); // New state for fetch button click
 
   useEffect(() => {
     if (refreshClicked) {
@@ -23,7 +25,7 @@ const UserTagSolveCounts = () => {
 
   const fetchData = async () => {
     setLoading(true);
-
+    setSelectedTag(null);
     try {
       const result = 'OK';
       const response = await axios.get(`https://codeforces.com/api/user.status?handle=${handle}&result=${result}`);
@@ -51,8 +53,9 @@ const UserTagSolveCounts = () => {
           });
         }
       });
-
+      setFetchButtonClicked(true);
       setTagCounts(newTagCounts);
+
     } catch (error) {
       console.error('Error fetching data:', error);
     } finally {
@@ -109,18 +112,7 @@ const UserTagSolveCounts = () => {
     setTagProblems(problems);
   };
 
-  const handleSortChange = (event) => {
-    const selectedSortBy = event.target.value;
-    setSortOrder(selectedSortBy);
 
-    // Apply sorting for tag list
-    const sortedTagList = sortTagList(Object.entries(tagCounts));
-    setTagCounts(sortedTagList);
-
-    // Apply sorting for the right column problems list
-    const sortedProblems = sortProblemsList(tagProblems, selectedSortBy);
-    setTagProblems(sortedProblems);
-  };
 
   const sortTagList = (tagList) => {
     switch (sortByTag) {
@@ -175,20 +167,22 @@ const UserTagSolveCounts = () => {
               Fetch Data
             </button>
           </div>
-          <label>
-            Sort By Tag:<span>&nbsp;&nbsp;</span>
-            <select value={sortByTag} onChange={(e) => setSortByTag(e.target.value)}>
-              <option value="name">Name</option>
-              <option value="countAsc">Count Asc</option>
-              <option value="countDesc">Count Desc</option>
-            </select>
-          </label>
         </div>
 
         {loading ? (
           <p>Loading...</p>
         ) : (
+
           <ul className="tag-list">
+            {fetchButtonClicked && <Cf_Profile userHandle={handle} />}
+            <label>
+              Sort By Tag:<span>&nbsp;&nbsp;</span>
+              <select value={sortByTag} onChange={(e) => setSortByTag(e.target.value)}>
+                <option value="name">Name</option>
+                <option value="countAsc">Count Asc</option>
+                <option value="countDesc">Count Desc</option>
+              </select>
+            </label>
             {sortTagList(Object.entries(tagCounts)).map(([tag, solveCount]) => (
               <li key={tag}>
                 <button className="tag-button" onClick={() => handleTagClick(tag)}>
@@ -225,6 +219,7 @@ const UserTagSolveCounts = () => {
             </div>
 
             <div className="card-list">
+
               {sortProblemsList(tagProblems, sortByProblems).map((problem, index) => (
                 <div
                   className={`${problem.youSolved ? 'solved' : (problem.submitted ? 'notsolved-red' : 'notsolved')}`}
