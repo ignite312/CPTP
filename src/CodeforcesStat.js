@@ -7,6 +7,8 @@ import Cf_Profile from './CF_Profile';
 const UserTagSolveCounts = () => {
   const [handle, setHandle] = useState('');
   const [handle_2, setHandle_2] = useState('Tspectre');
+  const [t_handle, sett_Handle] = useState('Tspectre');
+
   const [tagCounts, setTagCounts] = useState({});
   const [loading, setLoading] = useState(false);
   const [selectedTag, setSelectedTag] = useState(null);
@@ -55,6 +57,7 @@ const UserTagSolveCounts = () => {
       });
       setFetchButtonClicked(true);
       setTagCounts(newTagCounts);
+      sett_Handle(handle);
 
     } catch (error) {
       console.error('Error fetching data:', error);
@@ -152,7 +155,10 @@ const UserTagSolveCounts = () => {
     // Set the refreshClicked state to trigger the useEffect hook
     setRefreshClicked(true);
   };
-
+  const resetFetchButtonClicked = () => {
+    setFetchButtonClicked(false);
+  };
+  
   return (
     <div className="user-tag-solve-counts">
       <div className="left-column">
@@ -174,7 +180,7 @@ const UserTagSolveCounts = () => {
         ) : (
 
           <ul className="tag-list">
-            {fetchButtonClicked && <Cf_Profile userHandle={handle} />}
+            {fetchButtonClicked && <Cf_Profile userHandle={t_handle} />}
             <label>
               Sort By Tag:<span>&nbsp;&nbsp;</span>
               <select value={sortByTag} onChange={(e) => setSortByTag(e.target.value)}>
