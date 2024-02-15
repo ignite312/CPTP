@@ -1,13 +1,13 @@
 {
   "files": {
     "main.css": "/CPTP/static/css/main.0f6c14d6.css",
-    "main.js": "/CPTP/static/js/main.c3a38b2a.js",
+    "main.js": "/CPTP/static/js/main.c648e302.js",
     "index.html": "/CPTP/index.html",
     "main.0f6c14d6.css.map": "/CPTP/static/css/main.0f6c14d6.css.map",
-    "main.c3a38b2a.js.map": "/CPTP/static/js/main.c3a38b2a.js.map"
+    "main.c648e302.js.map": "/CPTP/static/js/main.c648e302.js.map"
   },
   "entrypoints": [
     "static/css/main.0f6c14d6.css",
-    "static/js/main.c3a38b2a.js"
+    "static/js/main.c648e302.js"
   ]
 }
