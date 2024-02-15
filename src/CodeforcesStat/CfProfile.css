@@ -1,0 +1,21 @@
+.card {
+    display: flex;
+    padding: 40px;
+    gap: 20px;
+    border: 5px;
+}
+.logo {
+    height: 200px;
+}
+.info-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    gap : 5px
+}
+@media only screen and (max-width: 600px) {
+    .card {
+        gap: 10px;
+        flex-direction: column;
+    }
+}

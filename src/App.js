@@ -1,22 +1,25 @@
-import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-import AppHeader from './AppHeader';
-import CodeforcesStat from './CodeforcesStat';
-import AppFooter from './Footer';
+import Navbar from './Header';
+import Home from './Components/Home';
+import Footer from './Footer'
+import CfStat from './CodeforcesStat/CfStat'
 
-const App = () => {
+
+function App() {
   return (
     <Router>
-      <div>
-        <AppHeader />
-        <Routes>
-          <Route path="/CPTP" element={<CodeforcesStat />} />
-        </Routes>
-        <AppFooter/>
+      <div className="App">
+        <div className="content">
+          <Navbar />
+          <Routes>
+            <Route path="/CPTP" element={<CfStat />} />
+            <Route path="/CPTP/Home" element={<Home />} />
+          </Routes>
+        </div>
+        <Footer/>
       </div>
     </Router>
-    
   );
-};
+}
 
 export default App;

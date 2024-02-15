@@ -1,0 +1,165 @@
+.stat-container {
+    display: flex;
+    gap : 100px;
+}
+.left {
+    margin-top: 10px;
+}
+.left h2 {
+    margin-bottom: 10px;
+}
+input {
+    padding: 8px;
+    font-size: 16px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    color: #555;
+    margin-left: 2px;
+}
+
+/*Fetch and Refresh Button*/
+.button-container {
+    margin-top: 5px;
+}
+
+button {
+    background: linear-gradient(to right, #79addc, #3b5998);
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    padding: 8px 16px;
+    cursor: pointer;
+    width: 300px;
+    transition: background 0.3s ease, transform 0.3s ease;
+    &:hover {
+        background: linear-gradient(to right, #3b5998, #79addc);
+        transform: scale(1.05);
+    }
+}
+
+/*Select Style*/
+select {
+    appearance: none;
+    padding: 8px;
+    font-size: 14px;
+    margin-top: 10px;
+    cursor: pointer;
+    color: #555;
+    margin-left: 2px;
+    margin-bottom: 10px;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select:after {
+    content: '\25BC';
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    color: #555;
+}
+
+
+/*List of Problem Tag*/
+.tag-list {
+    list-style: none;
+    padding: 0;
+}
+
+.tag-button {
+    background: #3498db;
+    color: #fff;
+    border: none;
+    font-size: 16px;
+    padding: 8px 16px;
+    margin: 4px;
+    cursor: pointer;
+}
+
+
+/*List of Problem for a Specific tag*/
+.card-list {
+    display: flex;
+    flex-direction: column;
+    gap : 5px;
+}
+
+/*Style for 3 Type of Card Solved, Not solved, and Attempted*/
+.solved {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: background 0.3s ease;
+    background-color: darkgreen;
+}
+.attempted {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: background 0.3s ease;
+    background-color: darkred;
+}
+.notsolved {
+    border: 1px solid #ccc;
+    border-radius: 8px;
+    padding: 16px;
+    margin-bottom: 16px;
+    transition: background 0.3s ease;
+    background-color: white;
+}
+
+/*Hover for 3 Type of Card Solved, Not solved, and Attempted*/
+.solved:hover {
+    background-color: green;
+}
+.attempted:hover {
+    background-color: red;
+    color: black;
+}
+.notsolved:hover {
+    background-color: #f0f0f0;
+    color: black;
+}
+
+/**/
+.solved a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+.attempted a {
+    text-decoration: none;
+    color: white;
+    font-weight: bold;
+    display: block;
+}
+.notsolved a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    display: block;
+}
+@media only screen and (max-width: 600px) {
+    .stat-container {
+        gap: 10px;
+        flex-direction: column;
+    }
+    input,
+    select {
+        font-size: 14px; 
+    }
+    .left,
+    .right {
+      width: 100%;
+    }
+    .button-container {
+        margin-top: 5px;
+    }
+}
