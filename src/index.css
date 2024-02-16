@@ -44,3 +44,8 @@
 .intro {
   margin-top: 10px;
 }
+.navbar img {
+  height: 100px; /* Adjust as needed */
+  width: 100px; /* Adjust as needed */
+  margin-right: 5px;
+}
